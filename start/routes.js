@@ -27,8 +27,8 @@ Route.group(() => {
 
   Route.get('categorias', 'CategoryController.index');
   Route.post('categorias', 'CategoryController.store').middleware(['auth:jwt']);
-  Route.post('categorias', 'CategoryController.update').middleware(['auth:jwt']);
-  Route.post('categorias', 'CategoryController.destroy').middleware(['auth:jwt']);
+  Route.put('categorias/:id', 'CategoryController.update').middleware(['auth:jwt']);
+  Route.delete('categorias/:id', 'CategoryController.destroy').middleware(['auth:jwt']);
 
   Route.get('scp-items', 'ItemScpController.index');
   Route.post('scp-items', 'CategoryController.store').middleware(['auth:jwt']);

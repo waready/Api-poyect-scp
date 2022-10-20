@@ -22,19 +22,6 @@ class CategoryController {
     const categories =  await Category.all();
     return response.json(categories);
   }
-
-  /**
-   * Render a form to be used for creating a new category.
-   * GET categories/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
   /**
    * Create/save a new category.
    * POST categories
@@ -44,34 +31,15 @@ class CategoryController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-
+    const {categoria} = request.all();
+    const NewCategoria = new Category();
     
-  }
+    NewCategoria.name = categoria.name 
+    NewCategoria.danger = categoria.danger
 
-  /**
-   * Display a single category.
-   * GET categories/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
+    await NewCategoria.save()
+    return response.json(NewCategoria)
   }
-
-  /**
-   * Render a form to update an existing category.
-   * GET categories/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
-
   /**
    * Update category details.
    * PUT or PATCH categories/:id
@@ -81,6 +49,15 @@ class CategoryController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const {id} = params;
+    const UpDcategoria = await Category.find(id)
+    const {categoria} = request.all();
+
+    UpDcategoria.name = categoria.name;
+    UpDcategoria.danger = categoria.danger;
+    await UpDcategoria.save();
+    return response.json(UpDcategoria);
+
   }
 
   /**
@@ -91,7 +68,11 @@ class CategoryController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response }) {
+    const {id} = params;
+    const Delcategoria = await Category.find(id)
+    await Delcategoria.delete();
+    return response.json(Delcategoria);
   }
 }
 
