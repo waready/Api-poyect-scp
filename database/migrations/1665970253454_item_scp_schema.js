@@ -18,7 +18,7 @@ class ItemScpSchema extends Schema {
       table.integer('user_id').unsigned();
       table.foreign('user_id').references('users.id');
 
-      table.string("ip_creator",120)
+      table.string("ip_creator",120).nullable();
       table.timestamps()
     })
   }
