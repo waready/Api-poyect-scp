@@ -47,7 +47,7 @@ class ItemScpController {
     newSpcs.name        = scp.name
     newSpcs.item        = scp.item
     newSpcs.descrition = scp.descrition 
-    newSpcs.category_id = scp.category
+    newSpcs.category_id = scp.category_id
     newSpcs.user_id     = user.id
     newSpcs.url_img = new Date().getTime()+"."+avatar.subtype;
     await avatar.move(Helpers.publicPath('uploads'),{

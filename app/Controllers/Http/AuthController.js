@@ -9,7 +9,7 @@ class AuthController {
     return response.json(logged);
   }
 
-  async register({request, response}) {
+  async register({request, response, auth }) {
     const userInstance = new User();
     const {user}  = request.all();
 
@@ -18,6 +18,9 @@ class AuthController {
     userInstance.password = user.password;
 
     await userInstance.save();
+
+    let token = await auth.generate(userInstance)
+    Object.assign(userInstance, token)
 
     return response.json(userInstance);
   }
