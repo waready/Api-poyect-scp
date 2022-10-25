@@ -56,9 +56,8 @@ class ItemScpController {
     if(!avatar.moved()){
       return "ocurrio un error";
     }
-
     await newSpcs.save()
-    //const cssFile = Helpers.tmpPath('/public/upload/scp/'+newSpcs.url_img)
+     
     
     return response.json(newSpcs)
   }
@@ -73,7 +72,32 @@ class ItemScpController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ auth,params, request, response }) {
+    const user = await auth.getUser();
+    const scp = request.all();
+    const {id} = params;
+    const UdpSpcs = await ItemScp.find(id)
+    const avatar = request.file('avatar',{
+      types:['image'],
+      size:'2mb'
+    })
+    
+    UdpSpcs.name        = scp.name
+    UdpSpcs.item        = scp.item
+    UdpSpcs.descrition  = scp.descrition 
+    UdpSpcs.category_id = scp.category_id
+    UdpSpcs.user_id     = user.id
+    UdpSpcs.url_img = new Date().getTime()+"."+avatar.subtype;
+    await avatar.move(Helpers.publicPath('uploads'),{
+      name: UdpSpcs.url_img
+    })
+    if(!avatar.moved()){
+      return "ocurrio un error";
+    }
+
+    await UdpSpcs.save()
+
+    return response.json(UdpSpcs)
   }
 
   /**
@@ -85,6 +109,10 @@ class ItemScpController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, response }) {
+    const {id} = params;
+    const DeleteSpcs = await ItemScp.find(id);
+    await DeleteSpcs.delete();
+    return response.json(DeleteSpcs);
   }
 }
 

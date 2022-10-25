@@ -50,6 +50,7 @@ const namedMiddleware = {
 |
 */
 const serverMiddleware = [
+  /**img**/
   'Adonis/Middleware/Static',
   'Adonis/Middleware/Cors'
 ]

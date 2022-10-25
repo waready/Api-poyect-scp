@@ -32,6 +32,6 @@ Route.group(() => {
 
   Route.get('scp-items', 'ItemScpController.index');
   Route.post('scp-items', 'ItemScpController.store').middleware(['auth:jwt']);
-  Route.put('scp-items', 'ItemScpController.update').middleware(['auth:jwt']);
-  Route.delete('scp-items', 'ItemScpController.destroy').middleware(['auth:jwt']);
+  Route.put('scp-items/:id', 'ItemScpController.update').middleware(['auth:jwt']);
+  Route.delete('scp-items/:id', 'ItemScpController.destroy').middleware(['auth:jwt']);
 }).prefix('api/v1');
