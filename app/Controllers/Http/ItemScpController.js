@@ -6,7 +6,7 @@ const Helpers = use('Helpers');
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const ItemScp = use('App/Models/itemScp');
+const ItemScp = use('App/Models/ItemScp');
 /**
  * Resourceful controller for interacting with itemscps
  */
